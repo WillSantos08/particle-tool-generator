@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="pt_BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Particle Tool Generator</title>
+    <link rel="stylesheet" href="./src/main.css">
+    <link rel="icon" type="image/x-icon" href="./public/favicon.png">
+</head>
+
+<body>
+    <div id="sidebar">
+        <div id="sidebar-header">
+            <h1>Particle Tool Generator</h1>
+        </div>
+        <div id="controls">
+            <div class="section-title">Presets</div>
+            <div class="preset-grid">
+                <button class="preset-btn preset-fire" onclick="applyPreset('fire')">🔥 Fire</button>
+                <button class="preset-btn preset-snow" onclick="applyPreset('snow')">❄️ Snow</button>
+                <button class="preset-btn preset-explosion" onclick="applyPreset('explosion')">💥 Blast</button>
+                <button class="preset-btn preset-sparkle" onclick="applyPreset('sparkles')">✨ Sparkle</button>
+            </div>
+
+            <hr>
+
+            <div class="section-title">Emission</div>
+            <div class="control-group">
+                <label>Emission Rate: <span id="rate-value">50</span></label>
+                <input type="range" id="rate" min="1" max="200" value="50">
+            </div>
+
+            <div class="control-group">
+                <label>Size: <span id="size-value">8</span></label>
+                <input type="range" id="size" min="1" max="30" value="8">
+            </div>
+
+            <div class="control-group">
+                <label>Speed: <span id="speed-value">100</span></label>
+                <input type="range" id="speed" min="10" max="300" value="100">
+            </div>
+
+            <div class="control-group">
+                <label>Lifetime: <span id="lifetime-value">1.0</span>s</label>
+                <input type="range" id="lifetime" min="0.1" max="5" step="0.1" value="1.0">
+            </div>
+
+            <div class="control-group">
+                <label>Life Variation: ±<span id="life-variation-value">0.5</span>s</label>
+                <input type="range" id="life-variation" min="0" max="2" step="0.1" value="0.5">
+            </div>
+
+            <div class="control-group">
+                <label>Direction: <span id="direction-value">0</span>°</label>
+                <input type="range" id="direction" min="0" max="360" value="0">
+            </div>
+
+            <hr>
+
+            <div class="section-title">Physics</div>
+            <div class="control-group">
+                <label>Gravity: <span id="gravity-value">0.0</span></label>
+                <input type="range" id="gravity" min="-2" max="2" step="0.1" value="0">
+            </div>
+
+            <div class="control-group">
+                <label>Drag: <span id="drag-value">0</span></label>
+                <input type="range" id="drag" min="0" max="1" step="0.01" value="0">
+            </div>
+
+            <hr>
+
+            <div class="section-title">Emitter</div>
+            <div class="control-group">
+                <label>Emitter Type</label>
+                <select id="emitter-type">
+                    <option value="point">Point</option>
+                    <option value="circle">Circle</option>
+                    <option value="line">Line</option>
+                    <option value="area">Area</option>
+                </select>
+            </div>
+
+            <div class="control-group">
+                <label>Radius: <span id="radius-value">50</span></label>
+                <input type="range" id="radius" min="0" max="200" value="50">
+            </div>
+
+            <div class="control-group">
+                <label>Rotation: <span id="rotation-value">0</span>°</label>
+                <input type="range" id="rotation" min="0" max="360" value="0">
+            </div>
+
+            <div class="control-group">
+                <label>Position X: <span id="pos-x-value">256</span></label>
+                <input type="range" id="pos-x" min="0" max="512" value="256">
+            </div>
+
+            <div class="control-group">
+                <label>Position Y: <span id="pos-y-value">256</span></label>
+                <input type="range" id="pos-y" min="0" max="512" value="256">
+            </div>
+
+            <hr>
+
+            <div class="section-title">Appearance</div>
+            <div class="control-group">
+                <div class="color-grid">
+                    <div>
+                        <label>Start Color</label>
+                        <input type="color" id="color-start" value="#ffffff">
+                    </div>
+                    <div>
+                        <label>End Color</label>
+                        <input type="color" id="color-end" value="#ff0000">
+                    </div>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label>Shape</label>
+                <select id="shape">
+                    <option value="circle">Circle</option>
+                    <option value="square">Square</option>
+                    <option value="triangle">Triangle</option>
+                    <option value="star">Star</option>
+                </select>
+            </div>
+
+            <div class="control-group">
+                <label>Blend Mode</label>
+                <select id="blend">
+                    <option value="normal">Normal</option>
+                    <option value="additive" selected>Multiply</option>
+                </select>
+            </div>
+
+            <hr>
+
+            <div class="section-title">Effects</div>
+            <div class="control-group">
+                <div class="checkbox-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="scale-life" checked>
+                        <span>Scale Over Life</span>
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="fade-in">
+                        <span>Fade In</span>
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="trail">
+                        <span>Trail Effect</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="export-section">
+        <div class="export-section-title">Export Settings</div>
+        <div class="export-grid">
+            <div class="control-group" style="margin-bottom: 8px;">
+                <label>FPS</label>
+                <input type="number" id="export-fps" min="15" max="60" value="30">
+            </div>
+
+            <div class="control-group" style="margin-bottom: 8px;">
+                <label>Duration (s)</label>
+                <input type="number" id="export-duration" min="1" max="10" step="0.5" value="2">
+            </div>
+        </div>
+
+        <div class="control-group" style="margin-bottom: 12px;">
+            <label class="checkbox-label">
+                <input type="checkbox" id="export-loop" checked>
+                <span>Seamless Loop</span>
+            </label>
+            <div class="info-text">
+                Loop mode repeats animation for smooth transitions
+            </div>
+        </div>
+
+        <button class="btn btn-primary" id="export-btn" style="width: 100%;">Export Flipbook</button>
+    </div>
+
+    <div id="main-content">
+        <div id="header">
+            <div id="header-buttons">
+                <button class="btn" id="pause-btn">Pause Animation</button>
+                <button class="btn" id="clear-btn">Clear Animation</button>
+            </div>
+            <div id="particle-count">Particles: 0</div>
+        </div>
+
+        <div id="canvas-container">
+            <div class="preview-title">Animation Preview</div>
+            <div id="canvas-wrapper">
+                <canvas id="canvas" width="512" height="512"></canvas>
+            </div>
+        </div>
+    </div>
+    <script src="./src/main.js"></script>
+</body>
+</html>
